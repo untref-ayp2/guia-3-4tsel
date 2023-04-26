@@ -8,6 +8,7 @@ import (
 func main() {
 	l := linkedlist.NewLinkedList[int]()
 	fmt.Println("Agregamos 1, 2 y 3 al final de la lista")
+	fmt.Println("El tamaño debe ser 0 antes del primer append: ", l.Size())
 	l.Append(1)
 	l.Append(2)
 	l.Append(3)
