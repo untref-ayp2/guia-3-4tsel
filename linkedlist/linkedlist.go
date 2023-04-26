@@ -26,7 +26,7 @@ func newNode[T comparable](value T) *node[T] {
 type LinkedList[T comparable] struct {
 	head *node[T] // puntero al primer nodo
 	tail *node[T] // puntero al último nodo
-	size int	  // tamaño de la lista
+	size int      // tamaño de la lista
 }
 
 // NewLinkedList crea una nueva lista enlazada, vacía
@@ -49,7 +49,7 @@ func (l *LinkedList[T]) Append(value T) {
 	}
 	l.tail.next = newNode
 	l.tail = newNode
-	l.size ++
+	l.size++
 }
 
 // Prepend agrega un nuevo nodo, con el valor recibido,
@@ -64,7 +64,7 @@ func (l *LinkedList[T]) Prepend(value T) {
 	}
 	newNode.next = l.head
 	l.head = newNode
-	l.size ++
+	l.size++
 }
 
 // InsertAt agrega un nuevo nodo, con el valor recibido,
@@ -180,6 +180,115 @@ func (l *LinkedList[T]) Size() int {
 	if l.head == nil {
 		return 0
 	}
-	
+
 	return l.size
+}
+
+func (list3 *LinkedList[T]) Concatenate(list1, list2 *LinkedList[T]) *LinkedList[T] {
+
+	list1.tail.next = list2.head
+
+	list3 = list1
+
+	return list3
+}
+
+func (list3 *LinkedList[T]) Alternate(list1, list2 *LinkedList[T]) *LinkedList[T] {
+
+	i, j := 0, 0
+
+	for k := 0; k < list1.Size()+1+list2.Size()+1; k++ {
+
+		if k%2 == 0 {
+
+			aux, _ := list1.Get(i)
+
+			list3.Append(aux)
+
+			i++
+		} else {
+
+			aux, _ := list2.Get(j)
+
+			list3.Append(aux)
+
+			j++
+		}
+	}
+
+	return list3
+}
+
+//**********************************************
+
+func (stack *LinkedList[T]) StackPush(value T) {
+
+	stack.Append(value)
+}
+
+func (stack *LinkedList[T]) StackPop() (any, error) {
+
+	if stack.Size() == 0 {
+
+		return nil, errors.New("Stack is empty.")
+	}
+
+	pop, _ := stack.Get(stack.Size() - 1)
+
+	stack.Remove(pop)
+
+	return pop, nil
+}
+
+func (stack *LinkedList[T]) StackTop() (any, error) {
+
+	if stack.Size() == 0 {
+
+		return nil, errors.New("Stack is empty")
+	}
+
+	top, _ := stack.Get(stack.Size() - 1)
+
+	return top, nil
+}
+
+func (stack *LinkedList[T]) StackIsEmpty() bool {
+
+	return stack.Size() == 0
+}
+
+func (queue *LinkedList[T]) QueueEnqueue(value T) {
+
+	queue.Append(value)
+}
+
+func (queue *LinkedList[T]) QueueDequeue() (any, error) {
+
+	if queue.Size() == 0 {
+
+		return nil, errors.New("Queue is empty.")
+	}
+
+	dequeue, _ := queue.Get(0)
+
+	queue.Remove(dequeue)
+
+	return dequeue, nil
+}
+
+func (queue *LinkedList[T]) QueueFront() (any, error){
+
+	if queue.Size() == 0 {
+
+		return nil, errors.New("Queue is empty.")
+	}
+
+	front, _ := queue.Get(0)
+
+	return front, nil
+}
+
+func (queue *LinkedList[T]) QueueIsEmpty() bool {
+
+	return queue.Size() == 0
 }
