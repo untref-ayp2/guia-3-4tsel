@@ -291,4 +291,4 @@ func (queue *LinkedList[T]) QueueFront() (any, error){
 func (queue *LinkedList[T]) QueueIsEmpty() bool {
 
 	return queue.Size() == 0
-}
+}			
